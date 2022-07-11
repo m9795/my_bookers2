@@ -1,26 +1,14 @@
 <h2><%= @user.name %> さんとのチャット</h2>
-<table style="width: 400px;">
+<div class="message" style="width: 400px;">
   <% @chats.each do |chat| %>
     <% if chat.user_id == current_user.id %>
-    <tbody>
-      <tr>
-        <td></td>
-        <td>
-          <p style="text-align: right;"><%= chat.message %></p>
-        </td>
-      </tr>
+      <p style="text-align: right;"><%= chat.message %></p>
     <% else %>
-      <tr>
-        <td>
-          <p style="text-align: left;"><%= chat.message %></p>
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
+      <p style="text-align: left;"><%= chat.message %></p>
     <% end %>
   <% end %>
-</table>
-<%= form_with model: @chat do |f| %>
+</div>
+<%= form_with model: @chat, remote: true do |f| %>
   <%= f.text_field :message %>
   <%= f.hidden_field :room_id %>
   <% f.submit %>
