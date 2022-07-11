@@ -1,0 +1,20 @@
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <%= render "searches/form", range: @range %>
+
+    </div>
+  </div>
+</div>
+
+<table class="table">
+  <% if @range == "User" %>
+  <h1>Users search for <span>"</span><%= @word %><span>"</span></h1>
+    <%= render "/users/index", users: @users %>
+  <% else %>
+  <h1>Books search for <span>"</span><%= @word %><span>"</span></h1>
+    <%= render "/books/index", books: @books %>
+  <% end %>
+</table>
