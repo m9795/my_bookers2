@@ -1,20 +1,20 @@
 <h2><%= @user.name %> さんとのチャット</h2>
-<table>
+<table style="width: 400px;">
   <% @chats.each do |chat| %>
     <% if chat.user_id == current_user.id %>
     <tbody>
       <tr>
-        <th>
-          <p style="text-align: left;"><%= chat.message %></p>
-        </th>
-        <th></th>
+        <td></td>
+        <td>
+          <p style="text-align: right;"><%= chat.message %></p>
+        </td>
       </tr>
     <% else %>
       <tr>
-        <th></th>
-        <th>
-          <p style="text-align: right;"><%= chat.message %></p>
-        </th>
+        <td>
+          <p style="text-align: left;"><%= chat.message %></p>
+        </td>
+        <td></td>
       </tr>
     </tbody>
     <% end %>
