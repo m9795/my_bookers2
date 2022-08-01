@@ -16,22 +16,21 @@ class Book < ApplicationRecord
   #   Book.find(Favorite.group(:book_id).where(created_at: Time.current.all_week).order('count(book_id) desc').pluck(:book_id))
   # end
 
-  validates :title,presence:true
-  validates :body,presence:true,length:{maximum:200}
-  validates :rate,presence:true
+  validates :title, presence: true
+  validates :body, presence: true, length: { maximum: 200 }
+  validates :rate, presence: true
 
   def self.looks(search, word)
     if search == "perfect_match"
-      @book = Book.where("title LIKE?","#{word}")
+      @book = Book.where("title LIKE?", "#{word}")
     elsif search == "forward_match"
-      @book = Book.where("title LIKE?","#{word}%")
+      @book = Book.where("title LIKE?", "#{word}%")
     elsif search == "backward_match"
-      @book = Book.where("title LIKE?","%#{word}")
+      @book = Book.where("title LIKE?", "%#{word}")
     elsif search == "partial_match"
-      @book = Book.where("title LIKE?","%#{word}%")
+      @book = Book.where("title LIKE?", "%#{word}%")
     else
       @book = Book.all
     end
   end
-
 end

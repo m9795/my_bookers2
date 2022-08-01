@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update]
+  before_action :ensure_guest_user, only: [:edit]
 
   def show
     @user = User.find(params[:id])
     # @books = @user.books
-    to  = Time.current.at_end_of_day
-    from  = (to - 6.day).at_beginning_of_day
-    @books = @user.books.sort {|a,b|
+    to = Time.current.at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
+    @books = @user.books.sort { |a, b|
       b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size
     }
@@ -38,15 +39,21 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def user_params
-    params.require(:user).permit(:name, :introduction, :profile_image)
-  end
-
-  def ensure_correct_user
-    @user = User.find(params[:id])
-    unless @user == current_user
-      redirect_to user_path(current_user)
+    def user_params
+      params.require(:user).permit(:name, :introduction, :profile_image)
     end
-  end
+
+    def ensure_correct_user
+      @user = User.find(params[:id])
+      unless @user == current_user
+        redirect_to user_path(current_user)
+      end
+    end
+
+    def ensure_guest_user
+      @user = User.find(params[:id])
+      if @user.name == "guestuser"
+        redirect_to user_path(current_user), notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+      end
+    end
 end
