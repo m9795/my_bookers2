@@ -21,11 +21,10 @@ class FavoritesController < ApplicationController
   end
 
   private
-
-  def ensure_correct_user
-    @user = User.find(params[:user_id])
-    if @user.id != current_user.id
-      redirect_to user_path(current_user.id), notice: " 「いいねした本一覧」画面は本人以外閲覧できません"
+    def ensure_correct_user
+      @user = User.find(params[:user_id])
+      if @user.id != current_user.id
+        redirect_to user_path(current_user.id), notice: " 「いいねした本一覧」画面は本人以外閲覧できません"
+      end
     end
-  end
 end
