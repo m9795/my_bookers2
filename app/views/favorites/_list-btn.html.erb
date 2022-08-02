@@ -1,0 +1,5 @@
+<div class="text-center mt-2">
+  <% if current_user == user %>
+    <%= link_to "いいねした本一覧", user_favorites_path(user.id), class: "btn btn-info d-flex justify-content-center" %>
+  <% end %>
+</div>
